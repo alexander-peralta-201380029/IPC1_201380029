@@ -1,1 +1,35 @@
 
+import java.util.Scanner;
+
+
+public class Tablero {
+    
+    private String nombre;
+    private String nacimiento;
+    
+    public Tablero(){//CONSTRUCTOR
+        nombre="";
+        nacimiento="";
+     }
+    public Tablero(String n,String na){//OTRO CONSTRUCTOR
+         nombre=n;
+        nacimiento=na;
+    }
+    
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNacimiento() {
+        return nacimiento;
+    
+
+    public void setNacimiento(String nacimiento) {
+        this.nacimiento = nacimiento;
+    
+    
