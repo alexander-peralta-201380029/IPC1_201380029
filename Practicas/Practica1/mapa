@@ -1,1 +1,280 @@
 
+import java.util.*;
+
+
+public class Mapa {
+    
+      Scanner lector = new Scanner(System.in);
+    Random random=new Random();
+    
+    
+     public String[][] escenarioUno() { // metodo-return
+         
+         String matriz [][]=new String [35][70];
+         //String arreglo2 [][]=new String[25][20];
+         
+         // String entrada="C";
+          matriz[1][1]="C";
+          matriz[0][1]=" ";
+          matriz[0][2]=" ";
+          matriz[1][1]=" ";
+          matriz[1][0]=" ";
+     
+        
+        for(int i=0;i<20;i++){
+            int pos1_1=random.nextInt(35);
+            int pos2_1=random.nextInt(70);
+           matriz [pos1_1][pos2_1]="#";
+           
+        }  
+        
+        for(int i=0;i<30;i++){
+            
+            int pos1_2=random.nextInt(35);
+            int pos2_2=random.nextInt(70);
+            matriz[pos1_2][pos2_2]="$";
+                    
+            
+        
+        }
+        
+         for(int i=0;i<40;i++){
+            
+            int pos1_3=random.nextInt(35);
+            int pos2_3=random.nextInt(70);
+            matriz[pos1_3][pos2_3]="#";
+           
+        
+        }
+        
+               
+      
+         
+         for (int i = 0; i < matriz.length; i++) {
+             for (int h = 0; h < matriz[0].length; h++) {
+                if(i==0 || i==34){
+                         matriz[i][h]="#"+"";
+                     }
+                 else if(h==0 || h==79){
+                       matriz[i][h]="#";
+                 }     
+                 if (matriz[i][h]==null) {
+                     matriz[i][h]=" ";
+                 }
+             }
+         }
+         
+         imprimirArreglo(matriz );
+         
+        int x= 1;
+        int y= 1;
+        int puntos =10;
+        int movimientos=0;
+       String pared="#";
+        String com1="%";
+        String com2="$";
+       
+        
+        boolean sigue;
+        
+        while(sigue=true){
+            
+        if (puntos<=0 || puntos >=100){
+           ganar_perder();
+
+        }else{
+                                                                 
+                      
+        System.out.println("\n MOVIMIENTOS: \t Puntuacion: "+puntos);
+        System.out.println("(w)Arriba \t Movimientos: "+movimientos );
+        System.out.println("(s) Abajo \t Moverse Hacia: " );
+        System.out.println("(a) Izquierda");
+        System.out.println("(d) Derecha");
+        System.out.println("(m) Regresar a menu");
+                                                                 
+                     
+      
+        Scanner entrada3 = new Scanner(System.in);
+        String mov= entrada3.nextLine();
+        
+       
+            
+            
+        switch(mov.toLowerCase().charAt(0)){
+            
+            case 'w':
+                if(matriz[x-1][y]==pared){
+                    x++;
+                }
+                matriz[x-1][y]="C";
+                matriz[x][y]="";
+                x--;
+                movimientos++;
+                if(matriz[x-1][y]==com1){
+                   matriz[x-1][y]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos+=10;
+                }else if(matriz[x-1][y]==com2){
+                   matriz[x-1][y]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos-=10;
+                }else if(matriz[x-1][y]==pared){
+                   matriz[x-1][y]="#";
+                   matriz[x][y]="C";
+                    System.out.println("No puedes pasar la pared");
+                }
+                break;
+                
+            case'a':
+                if(matriz[x][y-1]==pared){
+                    y--;
+                }
+                matriz[x][y-1]="C";
+                matriz[x][y]="";
+                y++;
+                movimientos++;
+                if(matriz[x-1][y]==com1){
+                   matriz[x-1][y]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos+=10;
+                }else if(matriz[x][y-1]==com2){
+                   matriz[x][y-1]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos-=10;
+           
+                }else if(matriz[x][y-1]==pared){
+                   matriz[x][y-1]="#";
+                   matriz[x][y]="C";
+                    System.out.println("No puedes pasar la pared");
+                }
+                break;
+                
+            case 'd':
+                 if(matriz[x][y+1]==pared){
+                    y--;
+                }
+                matriz[x][y+1]="C";
+                matriz[x][y]="";
+                y++;
+                movimientos++;
+                if(matriz[x][y+1]==com1){
+                   matriz[x][y+1]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos+=10;
+                }else if(matriz[x][y+1]==com2){
+                   matriz[x][y+1]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos-=10;
+
+                }else if(matriz[x][y+1]==pared){
+                   matriz[x][y+1]="#";
+                   matriz[x][y]="C";
+                    //System.out.println("");
+                    //System.out.println("");
+                    System.out.println("No puedes pasar la pared");
+                }
+                
+                break; 
+                
+            case 's':
+                if(matriz[x+1][y]==pared){
+                    x--;
+                }
+                matriz[x+1][y]="C";
+                matriz[x][y]="";
+                x++;
+                movimientos++;
+                if(matriz[x+1][y]==com1){
+                   matriz[x+1][y]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos+=10;
+                }else if(matriz[x+1][y]==com2){
+                   matriz[x+1][y]=matriz[x][y];
+                   matriz[x][y]="";
+                   puntos-=10;
+                }else if(matriz[x+1][y]==pared){
+                   matriz[x+1][y]="#";
+                   matriz[x][y]="C";
+                 //   System.out.println("");
+                  //  System.out.println("");
+                    System.out.println("No puedes pasar la pared");
+                }
+                
+                break; 
+                
+            case'm':
+              //  Main m=new Main();
+                sigue=true;
+                
+                break;
+                
+        }
+            for(int i=0;i<25;i++){
+                for(int j=0; j<80;j++){
+                    System.out.print(matriz[i][j]);
+                }
+                System.out.println("");
+            }
+        //} while(mover!=0);
+        
+        }
+        }
+           
+         
+         
+         
+         
+         
+         
+         
+             
+        
+     //  imprimirArreglo(matriz );
+        
+       
+         return matriz ;
+     }
+     
+     
+     
+      public static void  imprimirArreglo(String[][] matriz ){ 
+// metodo
+        int x=1;
+        int y=0;
+        
+        for( int i=0;i<25; i++){
+            
+             System.out.println();
+             
+           for( int j=0; j<80; j++){
+                
+            //  arreglo[i][j]="" ;
+                 
+               
+               System.out.print(matriz [i][j]  );
+        
+        
+            
+           
+           }
+        }
+        System.out.println("");
+        
+       } 
+
+       public void ganar_perder() {
+            int puntos=0;
+            switch(puntos){
+                case 0:
+                     System.out.println("Lo siente has perdido ,no tienes puntos acumulados");
+                    break;
+                case 100:
+                    System.out.println("Filicidades has ganado el juego..");
+                    break;
+            }
+       
+           
+           
+    }  
+        
+}
