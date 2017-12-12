@@ -1,26 +1,28 @@
+package practica.pkg1;
 
 import java.util.*;
 
 
 public class Mapa {
     
-      Scanner lector = new Scanner(System.in);
+    Scanner lector = new Scanner(System.in);
     Random random=new Random();
     
     
-     public String[][] escenarioUno() { // metodo-return
+     public String[][] escenarioUno() { 
          
          String matriz [][]=new String [35][70];
-         //String arreglo2 [][]=new String[25][20];
-         
-         // String entrada="C";
-          matriz[1][1]="C";
+       
+          matriz[1][1]="@";
           matriz[0][1]=" ";
           matriz[0][2]=" ";
           matriz[1][1]=" ";
           matriz[1][0]=" ";
-     
+       
+       
+    
         
+              
         for(int i=0;i<20;i++){
             int pos1_1=random.nextInt(35);
             int pos2_1=random.nextInt(70);
@@ -32,7 +34,7 @@ public class Mapa {
             
             int pos1_2=random.nextInt(35);
             int pos2_2=random.nextInt(70);
-            matriz[pos1_2][pos2_2]="$";
+            matriz[pos1_2][pos2_2]="%";
                     
             
         
@@ -42,21 +44,17 @@ public class Mapa {
             
             int pos1_3=random.nextInt(35);
             int pos2_3=random.nextInt(70);
-            matriz[pos1_3][pos2_3]="#";
-           
-        
+            matriz[pos1_3][pos2_3]="$";
         }
         
-               
-      
-         
+                  
          for (int i = 0; i < matriz.length; i++) {
              for (int h = 0; h < matriz[0].length; h++) {
                 if(i==0 || i==34){
-                         matriz[i][h]="#"+"";
+                         matriz[i][h]="H"+"";
                      }
-                 else if(h==0 || h==79){
-                       matriz[i][h]="#";
+                 else if(h==0 || h==69){
+                       matriz[i][h]="H";
                  }     
                  if (matriz[i][h]==null) {
                      matriz[i][h]=" ";
@@ -70,10 +68,8 @@ public class Mapa {
         int y= 1;
         int puntos =10;
         int movimientos=0;
-       String pared="#";
         String com1="%";
         String com2="$";
-       
         
         boolean sigue;
         
@@ -83,30 +79,27 @@ public class Mapa {
            ganar_perder();
 
         }else{
-                                                                 
-                      
+                                                                                       
         System.out.println("\n MOVIMIENTOS: \t Puntuacion: "+puntos);
         System.out.println("(w)Arriba \t Movimientos: "+movimientos );
         System.out.println("(s) Abajo \t Moverse Hacia: " );
         System.out.println("(a) Izquierda");
         System.out.println("(d) Derecha");
         System.out.println("(m) Regresar a menu");
-                                                                 
-                     
-      
+                                                                                      
+ 
         Scanner entrada3 = new Scanner(System.in);
         String mov= entrada3.nextLine();
         
-       
-            
+
             
         switch(mov.toLowerCase().charAt(0)){
             
             case 'w':
-                if(matriz[x-1][y]==pared){
+                if(matriz[x-1][y]=="H"){
                     x++;
                 }
-                matriz[x-1][y]="C";
+                matriz[x-1][y]="@";
                 matriz[x][y]="";
                 x--;
                 movimientos++;
@@ -118,18 +111,19 @@ public class Mapa {
                    matriz[x-1][y]=matriz[x][y];
                    matriz[x][y]="";
                    puntos-=10;
-                }else if(matriz[x-1][y]==pared){
-                   matriz[x-1][y]="#";
-                   matriz[x][y]="C";
+                
+                }else if(matriz[x-1][y]=="H"){
+                   matriz[x-1][y]="H";
+                   matriz[x][y]="@";
                     System.out.println("No puedes pasar la pared");
                 }
                 break;
                 
             case'a':
-                if(matriz[x][y-1]==pared){
+                if(matriz[x][y-1]=="H"){
                     y--;
                 }
-                matriz[x][y-1]="C";
+                matriz[x][y-1]="@";
                 matriz[x][y]="";
                 y++;
                 movimientos++;
@@ -141,19 +135,18 @@ public class Mapa {
                    matriz[x][y-1]=matriz[x][y];
                    matriz[x][y]="";
                    puntos-=10;
-           
-                }else if(matriz[x][y-1]==pared){
-                   matriz[x][y-1]="#";
-                   matriz[x][y]="C";
+                }else if(matriz[x][y-1]=="H"){
+                   matriz[x][y-1]="H";
+                   matriz[x][y]="@";
                     System.out.println("No puedes pasar la pared");
                 }
                 break;
                 
             case 'd':
-                 if(matriz[x][y+1]==pared){
+                 if(matriz[x][y+1]=="H"){
                     y--;
                 }
-                matriz[x][y+1]="C";
+                matriz[x][y+1]="@";
                 matriz[x][y]="";
                 y++;
                 movimientos++;
@@ -164,23 +157,21 @@ public class Mapa {
                 }else if(matriz[x][y+1]==com2){
                    matriz[x][y+1]=matriz[x][y];
                    matriz[x][y]="";
-                   puntos-=10;
+                   puntos-=20;
+                }else if(matriz[x][y+1]=="H"){
+                   matriz[x][y+1]="H";
+                   matriz[x][y]="@";
 
-                }else if(matriz[x][y+1]==pared){
-                   matriz[x][y+1]="#";
-                   matriz[x][y]="C";
-                    //System.out.println("");
-                    //System.out.println("");
                     System.out.println("No puedes pasar la pared");
                 }
                 
                 break; 
                 
             case 's':
-                if(matriz[x+1][y]==pared){
+                if(matriz[x+1][y]=="H"){
                     x--;
                 }
-                matriz[x+1][y]="C";
+                matriz[x+1][y]="@";
                 matriz[x][y]="";
                 x++;
                 movimientos++;
@@ -191,31 +182,30 @@ public class Mapa {
                 }else if(matriz[x+1][y]==com2){
                    matriz[x+1][y]=matriz[x][y];
                    matriz[x][y]="";
-                   puntos-=10;
-                }else if(matriz[x+1][y]==pared){
-                   matriz[x+1][y]="#";
-                   matriz[x][y]="C";
-                 //   System.out.println("");
-                  //  System.out.println("");
+                   puntos-=20;
+                }else if(matriz[x+1][y]=="H"){
+                   matriz[x+1][y]="H";
+                   matriz[x][y]="@";
+                 
                     System.out.println("No puedes pasar la pared");
                 }
                 
                 break; 
                 
             case'm':
-              //  Main m=new Main();
+             
                 sigue=true;
                 
                 break;
                 
         }
-            for(int i=0;i<25;i++){
-                for(int j=0; j<80;j++){
+            for(int i=0;i<35;i++){
+                for(int j=0; j<70;j++){
                     System.out.print(matriz[i][j]);
                 }
                 System.out.println("");
             }
-        //} while(mover!=0);
+    
         
         }
         }
@@ -229,7 +219,7 @@ public class Mapa {
          
              
         
-     //  imprimirArreglo(matriz );
+     
         
        
          return matriz ;
@@ -238,18 +228,16 @@ public class Mapa {
      
      
       public static void  imprimirArreglo(String[][] matriz ){ 
-// metodo
         int x=1;
         int y=0;
         
-        for( int i=0;i<25; i++){
+        for( int i=0;i<35; i++){
             
              System.out.println();
              
-           for( int j=0; j<80; j++){
+           for( int j=0; j<70; j++){
                 
-            //  arreglo[i][j]="" ;
-                 
+                    
                
                System.out.print(matriz [i][j]  );
         
